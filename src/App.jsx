@@ -5,12 +5,14 @@ import getNews from "./services/getNews";
 
 function App() {
   const [news, setNews] = useState([]);
-  useEffect(() => {
-    const newsData = getNews();
-    setNews(newsData);
-  }, []);
 
-  //console.log(news[0].description);
+  useEffect(() => {
+    const getNewsData = async () => {
+      const newsData = await getNews();
+      setNews(newsData);
+    };
+    getNewsData();
+  }, []);
 
   return (
     <div>
@@ -19,12 +21,11 @@ function App() {
         <NewsCard
           key={idx}
           title={data.title}
-          description={data.description}
+          content={data.content}
           url={data.url}
           author={data.author}
-          image={data.image}
-          category={data.category}
-          published={data.published}
+          image={data.urlToImage}
+          published={data.publishedAt}
         />
       ))}
     </div>

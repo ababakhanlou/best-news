@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import altImage from "./../assets/papers.jpg";
 
 const StyledNews = styled.div`
   padding: 10px;
@@ -7,6 +8,8 @@ const StyledNews = styled.div`
   flex-direction: column;
   background-color: lightgoldenrodyellow;
   margin-bottom: 10px;
+  height: 500px;
+  width: 770px;
 `;
 
 const StyledInfo = styled.div`
@@ -20,29 +23,24 @@ const StyledImg = styled.img`
   width: 270px;
 `;
 
-const NewsCard = ({
-  title,
-  description,
-  url,
-  author,
-  image,
-  category,
-  published,
-}) => {
+const NewsCard = ({ title, content, url, author, image, published }) => {
+  if (!image) {
+    image = altImage;
+  }
+
   return (
     <StyledNews>
       <h3>{title}</h3>
       <StyledInfo>
         <div>
           <p>{published}</p>
-          <p>{category}</p>
           <p>{author}</p>
+          <a>{url}</a>
         </div>
-        <StyledImg src={image} alt="image here"></StyledImg>
+        <StyledImg src={image} alt=""></StyledImg>
       </StyledInfo>
       <button>Read More</button>
-      <p>{description}</p>
-      <a>{url}</a>
+      <p>{content}</p>
     </StyledNews>
   );
 };
