@@ -8,6 +8,7 @@ const StyledNews = styled.div`
   flex-direction: column;
   background-color: lightgoldenrodyellow;
   margin-bottom: 10px;
+  margin-left: 10px;
   height: auto;
   width: 770px;
 `;
