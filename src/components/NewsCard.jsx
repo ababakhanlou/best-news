@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import altImage from "./../assets/papers.jpg";
 
@@ -8,7 +8,7 @@ const StyledNews = styled.div`
   flex-direction: column;
   background-color: lightgoldenrodyellow;
   margin-bottom: 10px;
-  height: 500px;
+  height: auto;
   width: 770px;
 `;
 
@@ -23,9 +23,24 @@ const StyledImg = styled.img`
   width: 270px;
 `;
 
+const StyleContent = styled.div`
+  padding: 5px;
+  ${({ hidden }) => hidden && "visibility: hidden"}
+`;
+
 const NewsCard = ({ title, content, url, author, image, published }) => {
   if (!image) {
     image = altImage;
+  }
+
+  const [detail, setDetail] = useState("Read More");
+
+  function toggle() {
+    if (detail === "Read More") {
+      setDetail("Read Less");
+    } else {
+      setDetail("Read More");
+    }
   }
 
   return (
@@ -33,14 +48,16 @@ const NewsCard = ({ title, content, url, author, image, published }) => {
       <h3>{title}</h3>
       <StyledInfo>
         <div>
-          <p>{published}</p>
-          <p>{author}</p>
-          <a>{url}</a>
+          <p>Date of article: {published}</p>
+          <p>Reported by: {author}</p>
+          <a href={url}>Link to Site</a>
         </div>
         <StyledImg src={image} alt=""></StyledImg>
       </StyledInfo>
-      <button>Read More</button>
-      <p>{content}</p>
+      <button onClick={toggle}>{detail}</button>
+      <StyleContent hidden={detail === "Read More"}>
+        <p>{content}</p>
+      </StyleContent>
     </StyledNews>
   );
 };
