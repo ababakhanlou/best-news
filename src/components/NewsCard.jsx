@@ -6,11 +6,12 @@ const StyledNews = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
-  background-color: lightgoldenrodyellow;
   margin-bottom: 10px;
   margin-left: 10px;
   height: auto;
   width: 770px;
+  border: 1px solid grey;
+  border-radius: 10px;
 `;
 
 const StyledInfo = styled.div`
@@ -24,9 +25,32 @@ const StyledImg = styled.img`
   width: 270px;
 `;
 
-const StyleContent = styled.div`
+const StyledContent = styled.div`
   padding: 5px;
   ${({ hidden }) => hidden && "visibility: hidden"}
+`;
+
+const StyledButton = styled.button`
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  &:focus{
+    outline:0;
+  }
+  font-weight: 900;
+`;
+
+const StyledLink = styled.a`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    
+  }
+  color: blue;
 `;
 
 const NewsCard = ({ title, content, url, author, image, published }) => {
@@ -34,15 +58,7 @@ const NewsCard = ({ title, content, url, author, image, published }) => {
     image = altImage;
   }
 
-  const [detail, setDetail] = useState("Read More");
-
-  function toggle() {
-    if (detail === "Read More") {
-      setDetail("Read Less");
-    } else {
-      setDetail("Read More");
-    }
-  }
+  const [detail, setDetail] = useState(false);
 
   return (
     <StyledNews>
@@ -51,14 +67,15 @@ const NewsCard = ({ title, content, url, author, image, published }) => {
         <div>
           <p>Date of article: {published}</p>
           <p>Reported by: {author}</p>
-          <a href={url}>Link to Site</a>
+          <StyledLink href={url} target="_blank" rel="noreferrer noopener">Link to Site</StyledLink>
         </div>
         <StyledImg src={image} alt=""></StyledImg>
       </StyledInfo>
-      <button onClick={toggle}>{detail}</button>
-      <StyleContent hidden={detail === "Read More"}>
+      {!detail && <StyledButton onClick={()=> setDetail(true)}>ˇ Read More ˇ</StyledButton>}
+      <StyledContent hidden={!detail}>
         <p>{content}</p>
-      </StyleContent>
+      </StyledContent>
+      {detail && <StyledButton onClick={()=> setDetail(false)}>ˆ Read Less ˆ</StyledButton>}
     </StyledNews>
   );
 };

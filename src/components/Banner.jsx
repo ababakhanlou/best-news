@@ -4,19 +4,20 @@ import styled from "styled-components";
 const StyledBanner = styled.div`
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: green;
+  background-color: black;
+  color:white;
   margin-bottom: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
-
-const StyledSlogan = styled.p``;
 
 const Banner = () => {
   return (
     <StyledBanner>
       <h1>Best News</h1>
-      <StyledSlogan>The best news you can't get</StyledSlogan>
     </StyledBanner>
   );
 };
